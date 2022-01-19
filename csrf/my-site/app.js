@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const mongodbStore = require("connect-mongodb-session");
+const csurf = require("csurf");
 
 const db = require("./data/database");
 const demoRoutes = require("./routes/demo");
@@ -36,9 +37,12 @@ app.use(
     })
 );
 
+app.use(csurf());
+
 app.use(async function (req, res, next) {
     const user = req.session.user;
     const isAuth = req.session.isAuthenticated;
+    const csrfToken = req.csrfToken();
 
     if (!user || !isAuth) {
         return next();
@@ -53,6 +57,7 @@ app.use(async function (req, res, next) {
     res.locals.isAuth = isAuth;
     res.locals.isAdmin = isAdmin;
     res.locals.user = user;
+    res.locals.csrfToken = csrfToken;
 
     next();
 });
