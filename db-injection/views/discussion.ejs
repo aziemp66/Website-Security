@@ -26,11 +26,11 @@
       <form action="/discussion/comment" method="POST">
         <div class="form-control">
           <label for="name">Your name</label>
-          <input type="text" id="name" name="name">
+          <input type="text" id="name" name="name" required>
         </div>
         <div class="form-control">
           <label for="comment">My Comment</label>
-          <textarea name="comment" id="comment" rows="5"></textarea>
+          <textarea name="comment" id="comment" rows="5" required></textarea>
         </div>
         <button class="btn">Send</button>
       </form>
